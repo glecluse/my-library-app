@@ -1,13 +1,15 @@
 // Jenkinsfile (Nouvelle tentative propre - SANS FTP)
 pipeline {
+    // Dans Jenkinsfile
     agent {
         docker {
             image 'docker:latest'
-            args '-v /var/run/docker.sock:/var/run/docker.sock'
-            reuseNode false
+            // Ajoute -u root ici pour spécifier l'utilisateur DANS le conteneur agent
+            args '-u root -v /var/run/docker.sock:/var/run/docker.sock'
+            reuseNode false // Optionnel: garde pour forcer un conteneur neuf
         }
     }
-
+    
     stages {
         // PAS d'étape Checkout explicite ici
 
